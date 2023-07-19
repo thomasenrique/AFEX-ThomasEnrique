@@ -1,8 +1,8 @@
 <template>
-    <h2>Videos Favoritos</h2>
-    <h3></h3>
+    <h1>Videos Favoritos - AFEX Dev Thomás Enrique Miño Pradel</h1>
+    
     <section>
-        <label for="videoUrl">Añadir nuevo video</label> <br />
+        <h2 for="videoUrl">Añadir nuevo video</h2> <br />
         <input id="videoUrl" v-model="newVideoUrl" @keypress.enter="addVideo" />
     </section>
 
