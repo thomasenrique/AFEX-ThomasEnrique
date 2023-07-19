@@ -1,8 +1,6 @@
 import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
 const ddbClient = new DynamoDBClient({});
-const ddbDocClient = DynamoDBDocumentClient.from(ddbClient);
 
 export const handler = async (event) => {
     try {
