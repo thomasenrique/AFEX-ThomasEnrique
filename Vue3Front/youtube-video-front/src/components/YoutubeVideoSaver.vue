@@ -9,7 +9,7 @@
     <section>
         <ul v-if="videos">
             <li v-for="(video, index) in videos" :key="video.id_video.S">
-                {{ index }} - {{ video.id_video.S }} - {{ video.url.S }} <!-- - {{ user.descripcion.S || "" }} -->
+                {{ index }} - {{ video.id_video.S }} - <!-- {{ video.url.S }} --> <!-- - {{ user.descripcion.S || "" }} -->
             </li>
         </ul>
     </section>

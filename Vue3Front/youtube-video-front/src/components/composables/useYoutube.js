@@ -20,17 +20,32 @@ export default function () {
                 var title = videoFinalData.snippet.title;
                 var channelTitle = videoFinalData.snippet.channelTitle;
                 var description = videoFinalData.snippet.description;
-                var thumbnails = videoFinalData.snippet.thumbnails.standard;
+                var thumbnailsUrl = videoFinalData.snippet.thumbnails.standard.url;
 
                 var videoFinalObject = {
                     title: title,
                     channelTitle: channelTitle,
                     description: description,
-                    thumbnails: thumbnails,
+                    thumbnails: thumbnailsUrl,
+                    url: data.newVideoUrl
+                }
+
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        "content-type": "text/plain; charset=utf-8",
+                    },
+                    body: JSON.stringify(videoFinalObject)
                 }
 
                 console.log('videoFinalData', videoFinalData)
                 console.log('videoFinalObject', videoFinalObject)
+
+                const response = await fetch(`https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/Add`, options);
+                console.log(response)
+
+
+
             }
         } else {
             alert("El enlace no es valido");
