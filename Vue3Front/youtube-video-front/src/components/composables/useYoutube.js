@@ -60,6 +60,7 @@ export default function () {
                 console.log(response)
                 //TODO agregar mensaje de exito
                 alert("Video guardado!");
+                data.newVideoUrl = "";
                 GetAllVideos();
             }
         } else {
