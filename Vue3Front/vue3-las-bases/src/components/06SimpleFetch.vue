@@ -14,8 +14,6 @@ export default {
     setup() {
         const users = ref(null)
         onMounted(async () => {
-            //const response = await fetch("https://jsonplaceholder.typicode.com/users");
-
             const options = {
                 method: 'GET', // Especificar el método HTTP que deseas utilizar
                 headers: {
@@ -23,7 +21,6 @@ export default {
                 },
             }
             const response = await fetch("https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/GetAll", options);
-            /* const res = await response.json() */
             const datos = await response.json();
             console.log(datos)
             users.value = datos
