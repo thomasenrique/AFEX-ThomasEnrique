@@ -3,8 +3,23 @@ import { reactive, toRefs } from 'vue';
 export default function () {
     const data = reactive({
         newVideoUrl: "",
-        arrayVideo: []
+        arrayVideo: [],
+        videos: []
     })
+
+    const GetAllVideos = async () => {
+        const options = {
+            method: 'GET', // Especificar el método HTTP que deseas utilizar
+            headers: {
+                "content-type": "text/plain; charset=utf-8",
+            },
+        }
+        const response = await fetch("https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/GetAll", options);
+        const datos = await response.json();
+        console.log(datos) 
+
+        data.videos = await datos;
+    }
 
     const addVideo = async () => {
         var youtubeResult = await validarVideo(data.newVideoUrl);
@@ -38,14 +53,14 @@ export default function () {
                     body: JSON.stringify(videoFinalObject)
                 }
 
-                console.log('videoFinalData', videoFinalData)
-                console.log('videoFinalObject', videoFinalObject)
+                console.log('video Final Data', videoFinalData)
+                console.log('video Final Object', videoFinalObject)
 
                 const response = await fetch(`https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/Add`, options);
                 console.log(response)
-
-
-
+                //TODO agregar mensaje de exito
+                alert("Video guardado!");
+                GetAllVideos();
             }
         } else {
             alert("El enlace no es valido");
@@ -99,5 +114,5 @@ export default function () {
         }
     }
 
-    return { ...toRefs(data), addVideo, deleteVideo }
+    return { ...toRefs(data), addVideo, deleteVideo, GetAllVideos }
 }

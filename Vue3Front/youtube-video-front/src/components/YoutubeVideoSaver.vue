@@ -7,48 +7,29 @@
     </section>
 
     <section>
-        <ul v-if="videos">
-            <li v-for="(video, index) in videos" :key="video.id_video.S">
-                {{ index }} - {{ video.id_video.S }} - <!-- {{ video.url.S }} --> <!-- - {{ user.descripcion.S || "" }} -->
-            </li>
-        </ul>
+        <div v-if="videos" style="display: flex;overflow-x: auto;padding: 1em 4em;flex-direction: row;flex-wrap: wrap;justify-content: center;align-items: flex-start;">
+            <div v-for="(video, index) in videos" :key="video.id_video.S" style="margin: .5em;">
+                <img :src="video.thumbnails.S" style="width: 360px; height: 180px; object-fit: cover;">
+            </div>
+        </div>
     </section>
+
 </template>
 
 <script>
-import { reactive, toRefs, ref, onMounted, computed } from 'vue'
+import { onMounted } from 'vue'
 import useYoutube from '@/components/composables/useYoutube'
 export default {
     name: "YoutubeVideoSaver",
     setup() {
-
-        const videos = ref([])
-
-        
-
-        
-
         onMounted(async () => {
-            const options = {
-                method: 'GET', // Especificar el método HTTP que deseas utilizar
-                headers: {
-                    "content-type": "text/plain; charset=utf-8",
-                },
-            }
-            const response = await fetch("https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/GetAll", options);
-            const datos = await response.json();
-            console.log(datos)
-
-            datos.forEach(async video => {
-                /* const res = await validarVideo(video.url.S); */
-                console.log(video)
-            });
-
-
-            videos.value = datos
+            console.log("Mounted")
+            await GetAllVideos();
         })
-        const { newVideoUrl, arrayVideo, addVideo, deleteVideo } = useYoutube();
-        return { videos, newVideoUrl, arrayVideo, addVideo, deleteVideo }
+
+        const { newVideoUrl, videos, addVideo, deleteVideo, GetAllVideos } = useYoutube();
+
+        return { newVideoUrl, videos, addVideo, deleteVideo, GetAllVideos }
     }
 }
 </script>
