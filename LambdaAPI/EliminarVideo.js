@@ -1,29 +1,35 @@
-const AWS = require('aws-sdk');
-const dynamoDB = new AWS.DynamoDB.DocumentClient();
+var AWS = require('aws-sdk');
+var ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
-export const handler = async (event, context) => {
+
+export const handler = async (event) => {
+    const { id_video } = event;
+
     try {
 
-        const data = JSON.parse(event.body);
-
-        const params = {
-            TableName: "video_info",
-            keyToDelete: data.keyToDelete
+        var params = {
+            TableName: 'TABLE',
+            Key: {
+                'KEY_NAME': { N: 'VALUE' }
+            }
         };
-
-        await dynamoDB.delete(params).promise();
+        // Call DynamoDB to delete the item from the table
+        ddb.deleteItem(params, function (err, data) {
+            if (err) {
+                console.log("Error", err);
+            } else {
+                console.log("Success", data);
+            }
+        });
 
         return {
             statusCode: 200,
-            body: JSON.stringify('Elemento eliminado correctamente.')
+            body: JSON.stringify({ message: 'Registro eliminado correctamente' }),
         };
-
-    }
-    catch (error) {
-        console.error(error);
+    } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: error.message }),
+            body: JSON.stringify({ message: 'Error al eliminar el registro' }),
         };
     }
 };
