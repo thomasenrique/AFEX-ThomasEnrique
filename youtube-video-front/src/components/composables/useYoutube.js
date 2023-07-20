@@ -8,6 +8,15 @@ export default function () {
         mensajeModal: "",
     })
 
+    const env = process.env;
+    const API_GET = process.env.VUE_APP_API_GET;
+    const API_ADD = process.env.VUE_APP_API_ADD;
+    const API_DELETE = process.env.VUE_APP_API_DELETE;
+    const API_GOOGLE_KEY = process.env.VUE_APP_API_GOOGLE_KEY;
+    const API_GOOGLE_URL = process.env.VUE_APP_API_GOOGLE_URL;
+
+    console.log(env)
+
     const GetAllVideos = async () => {
         const options = {
             method: 'GET', // Especificar el método HTTP que deseas utilizar
@@ -15,7 +24,8 @@ export default function () {
                 "content-type": "text/plain; charset=utf-8",
             },
         }
-        const response = await fetch("https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/GetAll", options);
+        //const response = await fetch("https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/GetAll", options);
+        const response = await fetch(API_GET, options);
         const datos = await response.json();
         console.log(datos)
 
@@ -60,13 +70,7 @@ export default function () {
                         },
                         body: JSON.stringify(videoFinalObject)
                     }
-
-                    console.log('video Final Data', videoFinalData)
-                    console.log('video Final Object', videoFinalObject)
-
-                    const response = await fetch(`https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/Add`, options);
-                    console.log(response)
-
+                    await fetch(API_ADD, options);
                     data.mensajeModal = "¡Video guardado!"
                     openModal();
 
@@ -95,7 +99,7 @@ export default function () {
                 },
                 body: JSON.stringify({ "id_video": id })
             }
-            const response = await fetch("https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/Delete", options);
+            const response = await fetch(API_DELETE, options);
             const datos = await response.json();
             data.mensajeModal = "¡Video eliminado!"
             openModal();
@@ -121,7 +125,6 @@ export default function () {
 
             if (!existe) { /* si no existe, adelante */
                 if (id.length > 0) {
-                    const apiKey = 'AIzaSyCbOI5m-EgH27x0iihdn1cF-VdwfvKVJ1M';
                     const videoId = id;
                     const options = {
                         method: 'GET', // Especificar el método HTTP que deseas utilizar
@@ -129,7 +132,7 @@ export default function () {
                             "content-type": "text/plain; charset=utf-8",
                         },
                     }
-                    const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${apiKey}&part=snippet`, options);
+                    const response = await fetch(`${API_GOOGLE_URL}?id=${videoId}&key=${API_GOOGLE_KEY}&part=snippet`, options);
                     console.log(response)
                     return { response: response, id: id };
                 } else {
