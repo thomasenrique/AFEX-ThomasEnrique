@@ -4,7 +4,7 @@
             <h1>Videos Favoritos - AFEX Dev Thomás Enrique Miño Pradel</h1>
         </header>
         <section class="container">
-            <h2 for="videoUrl">Añadir nuevo video</h2> <br />
+            <h4 for="videoUrl">Añadir nuevo video</h4>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Enlace</span>
                 <input class="form-control" id="videoUrl" v-model="newVideoUrl" @keypress.enter="addVideo"
@@ -13,18 +13,13 @@
             </div>
         </section>
 
-
-       <!--  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer;">
-            Launch demo modal
-        </button> -->
-
-
-
         <section class="container-fluid">
             <div v-if="videos"
                 style="display: flex;overflow-x: auto;padding: 1em 4em;flex-direction: row;flex-wrap: wrap;justify-content: center;align-items: flex-start;">
-                <div v-for="(video, index) in videos" :key="video.id_video.S" style="margin: .5em; cursor: pointer;" >
-                    <img :src="video.thumbnails.S" style="width: 360px; height: 180px; object-fit: cover;" data-bs-toggle="modal"  data-bs-target="#exampleModal" >
+                <div v-for="(video, index) in videos" :key="video.id_video.S" style="margin: .5em; cursor: pointer;">
+                    <img :src="video.thumbnails.S" style="width: 360px; height: 180px; object-fit: cover;"
+                        @click="SeleccionarVideo(video)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
                 </div>
             </div>
         </section>
@@ -33,38 +28,70 @@
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
+
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"> {{ videoSeleccionado.title.S }} </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
                     <div class="modal-body">
-                        ...
+                        <!-- <iframe width="560" height="315" :src="videoSeleccionado.url.S" title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe> -->
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/CkqsrL9y1BY" title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                   
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            @click="cerrarModal">Close</button>
                         <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+                    </div> -->
+
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
 
 
 <script>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import useYoutube from '@/components/composables/useYoutube'
 export default {
     name: "YoutubeVideoSaver",
     setup() {
+        const videoLimpio = {
+            title: { S: "" },
+            channelTitle: { S: "" },
+            description: { S: "" },
+            id_video: { S: "" },
+            thumbnails: { S: "" },
+            url: { S: "" },
+
+        }
+        const cerrarModal = () => {
+            videoSeleccionado.value = videoLimpio;
+        }
+        const videoSeleccionado = ref(videoLimpio)
+        const SeleccionarVideo = (video) => {
+            const videoSelect = JSON.parse(JSON.stringify(video)); /* Se vel extraño el proceso, pero me estaba retornando la info dentro de un [[target]] y asi lo obtuve rapido, el tiempo es oro en estos momentos */
+            console.log(videoSelect)
+            videoSeleccionado.value = videoSelect;
+
+        }
         onMounted(async () => {
             console.log("Mounted")
             await GetAllVideos();
         })
         const { newVideoUrl, videos, addVideo, deleteVideo, GetAllVideos } = useYoutube();
-        return { newVideoUrl, videos, addVideo, deleteVideo, GetAllVideos }
+        return { cerrarModal, SeleccionarVideo, videoSeleccionado, newVideoUrl, videos, addVideo, deleteVideo, GetAllVideos }
     }
 }
 </script>

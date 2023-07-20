@@ -16,7 +16,7 @@ export default function () {
         }
         const response = await fetch("https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/GetAll", options);
         const datos = await response.json();
-        console.log(datos) 
+        console.log(datos)
 
         data.videos = await datos;
     }
@@ -26,7 +26,7 @@ export default function () {
         if (youtubeResult != null) {
 
             //utilizar url devuelta por el api de youtube 
-            const videoResult = await fetch(youtubeResult.url);
+            const videoResult = await fetch(youtubeResult.response.url);
             const videoResultJson = await videoResult.json();
 
             if (videoResultJson.items.length > 0) {
@@ -42,7 +42,8 @@ export default function () {
                     channelTitle: channelTitle,
                     description: description,
                     thumbnails: thumbnailsUrl,
-                    url: data.newVideoUrl
+                    url: data.newVideoUrl,
+                    id_share: youtubeResult.id,
                 }
 
                 const options = {
@@ -89,7 +90,7 @@ export default function () {
                     },
                 }
                 const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${apiKey}&part=snippet`, options);
-                return response;
+                return { response: response, id: id };
             } else {
                 return null;
             }
