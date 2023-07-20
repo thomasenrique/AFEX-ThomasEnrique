@@ -85,10 +85,29 @@ export default function () {
         }
     }
 
-    const deleteVideo = (index) => {
-        data.arrayVideo.splice(index, 1)
-
-        //TODO enviar peticion http y eliminar de la base de datos dynamos con lambda
+    const deleteVideo = async (id) => {
+        console.log(id)
+        try {
+            const options = {
+                method: 'Delete', // Especificar el método HTTP que deseas utilizar
+                headers: {
+                    "content-type": "text/plain; charset=utf-8",
+                },
+                body: JSON.stringify({ "id_video": id })
+            }
+            const response = await fetch("https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/Delete", options);
+            const datos = await response.json();
+            data.mensajeModal = datos.message
+            openModal();
+            GetAllVideos();
+            console.log(datos)
+            //TODO enviar peticion http y eliminar de la base de datos dynamos con lambda
+        } catch (error) {
+            data.mensajeModal = "Error al eliminar"
+            openModal();
+            GetAllVideos();
+            console.log(error.message)
+        }
     }
     /* Sirve para validad el video que desean guardar */
     const validarVideo = async (url) => {

@@ -21,7 +21,8 @@
 
                     <img :src="video.thumbnails.S" style="width: 360px; height: 180px; object-fit: cover;"
                         @click="SeleccionarVideo(video)" data-bs-toggle="modal" data-bs-target="#modalYoutube">
-                    <button type="button" class="btn-close" aria-label="Close" @click="eliminarVideo"
+                        
+                    <button type="button" class="btn-close" aria-label="Close" @click="abrirModalEliminar(video.id_video.S)"
                         style="position: relative; right: 28px; bottom: 71px; background-color: aliceblue;"></button>
 
                 </div>
@@ -84,6 +85,30 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal eliminar-->
+        <div class="modal fade" id="modalMensajeEliminar" tabindex="-1" aria-labelledby="modalMensajeEliminar"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalMensajeEliminar">Mensaje</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            @click="cerrarModalEliminar"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Seguro que desea eliminar el video?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            @click="cerrarModalEliminar">Cancelar</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            @click="deleteVideo(idEliminar)" 
+                            >Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -104,8 +129,16 @@ export default {
             url: { S: "" },
             id_share: { S: "" }
         }
+        const idEliminar = ref("");
         const cerrarModal = () => {
             videoSeleccionado.value = videoLimpio;
+        }
+        const abrirModalEliminar = (id) => {
+            $("#modalMensajeEliminar").modal("show");
+            idEliminar.value = id;
+        }
+        const cerrarModalEliminar = () => {
+            $("#modalMensajeEliminar").modal("hide");
         }
         const videoSeleccionado = ref(videoLimpio)
         const SeleccionarVideo = (video) => {
@@ -122,7 +155,7 @@ export default {
 
 
         const { mensajeModal, newVideoUrl, videos, addVideo, deleteVideo, GetAllVideos, openModal, closeModal } = useYoutube();
-        return { mensajeModal, cerrarModal, SeleccionarVideo, videoSeleccionado, newVideoUrl, videos, addVideo, deleteVideo, GetAllVideos, openModal, closeModal }
+        return { idEliminar, abrirModalEliminar, cerrarModalEliminar, mensajeModal, cerrarModal, SeleccionarVideo, videoSeleccionado, newVideoUrl, videos, addVideo, deleteVideo, GetAllVideos, openModal, closeModal }
     }
 }
 </script>
