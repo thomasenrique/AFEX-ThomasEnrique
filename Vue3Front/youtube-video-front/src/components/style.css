@@ -1,0 +1,61 @@
+.let p {
+    text-transform: lowercase;
+}
+
+.let p:first-letter {
+    text-transform: uppercase;
+}
+
+.video {
+    display: flex;
+    overflow-x: auto;
+    padding: 1em 4em;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.video .imagen {
+    width: 360px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.video .btnCerrar {
+    position: relative;
+    right: 28px;
+    bottom: 71px;
+    background-color: #f2f2f2;
+}
+
+.video .title {
+    width: 360px;
+    color: #f1f1f1;
+    text-align: initial;
+}
+ 
+
+.h250 {
+    height: 250px !important
+}
+
+.modal-content {
+    background-color: #0f0f0f !important;
+}
+
+.modal-footer {
+    border-top: 1px solid #0f0f0f !important;
+}
+
+.modal-header {
+    border-bottom: 1px solid #0f0f0f !important;
+}
+
+.textAreaDescripcion {
+    background-color: #272727 !important;
+    color: white !important;
+    border: none !important;
+    padding-top: 10px !important;
+}

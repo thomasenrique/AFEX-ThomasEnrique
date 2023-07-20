@@ -97,7 +97,7 @@ export default function () {
             }
             const response = await fetch("https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/Delete", options);
             const datos = await response.json();
-            data.mensajeModal = datos.message
+            data.mensajeModal = "Video eliminado!"
             openModal();
             GetAllVideos();
             console.log(datos)

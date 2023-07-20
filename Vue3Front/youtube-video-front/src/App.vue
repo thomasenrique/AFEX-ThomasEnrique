@@ -12,10 +12,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
-  color: #2c3e50;
+  color: #f2f2f2;
 }
 body{
-  background-color: #2c3e501f !important;
+  background-color: #0f0f0f !important;
 }
 /*
 nav {

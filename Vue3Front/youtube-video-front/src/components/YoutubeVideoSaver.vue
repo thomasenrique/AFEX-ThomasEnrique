@@ -7,23 +7,25 @@
             <h4 for="videoUrl">Añadir nuevo video</h4>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Enlace</span>
-                <input class="form-control" id="videoUrl" v-model="newVideoUrl" @keypress.enter="addVideo"
-                    style="width: 15em;" />
+                <input class="form-control" id="videoUrl" placeholder="url de youtube" v-model="newVideoUrl"
+                    @keypress.enter="addVideo" style="width: 15em;" />
                 <button class="btn btn-success" @click="addVideo">Añadir</button>
             </div>
         </section>
 
         <section class="container-fluid">
-            <div v-if="videos"
-                style="display: flex;overflow-x: auto;padding: 1em 4em;flex-direction: row;flex-wrap: wrap;justify-content: center;align-items: flex-start;">
-                <div v-for="(video, index) in videos" :key="video.id_video.S" style="margin: .5em; cursor: pointer;">
+            <div v-if="videos" class="video">
+                <div v-for="(video, index) in videos" :key="video.id_video.S" class="let"
+                    style="margin: .5em; cursor: pointer;">
 
+                    <img :src="video.thumbnails.S" class="imagen" @click="SeleccionarVideo(video)" data-bs-toggle="modal"
+                        data-bs-target="#modalYoutube">
 
-                    <img :src="video.thumbnails.S" style="width: 360px; height: 180px; object-fit: cover;"
-                        @click="SeleccionarVideo(video)" data-bs-toggle="modal" data-bs-target="#modalYoutube">
-                        
-                    <button type="button" class="btn-close" aria-label="Close" @click="abrirModalEliminar(video.id_video.S)"
-                        style="position: relative; right: 28px; bottom: 71px; background-color: aliceblue;"></button>
+                    <button type="button" class="btn-close btnCerrar" aria-label="Close"
+                        @click="abrirModalEliminar(video.id_video.S)"></button>
+
+                    <p class="title" @click="SeleccionarVideo(video)" data-bs-toggle="modal" data-bs-target="#modalYoutube">
+                        {{ video.title.S.toLowerCase() }}</p>
 
                 </div>
             </div>
@@ -34,8 +36,8 @@
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="btn-close" @click="deleteVideo" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                        <!-- <button type="button" class="btn-close" @click="cerrarModal" data-bs-dismiss="modal"
+                            aria-label="Close"></button> -->
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -49,11 +51,8 @@
                             <div class="col">
                                 <h4>{{ videoSeleccionado.title.S }}</h4>
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                                        style="height: 250px">
-                                        {{ videoSeleccionado.description.S }}
-                                    </textarea>
-                                    <label for="floatingTextarea2">Descripción</label>
+                                    <textarea class="form-control h250 textAreaDescripcion" placeholder="Sin descripción."
+                                        readonly id="floatingTextarea2">{{ videoSeleccionado.description.S }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -103,8 +102,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                             @click="cerrarModalEliminar">Cancelar</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            @click="deleteVideo(idEliminar)" 
-                            >Aceptar</button>
+                            @click="deleteVideo(idEliminar)">Aceptar</button>
                     </div>
                 </div>
             </div>
@@ -117,6 +115,7 @@
 <script>
 import { onMounted, ref } from 'vue'
 import useYoutube from '@/components/composables/useYoutube'
+import '@/components/style.css'
 export default {
     name: "YoutubeVideoSaver",
     setup() {
