@@ -67,7 +67,7 @@ export default function () {
                     const response = await fetch(`https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/Add`, options);
                     console.log(response)
 
-                    data.mensajeModal = "Video guardado!"
+                    data.mensajeModal = "¡Video guardado!"
                     openModal();
 
                     data.newVideoUrl = "";
@@ -97,7 +97,7 @@ export default function () {
             }
             const response = await fetch("https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/Delete", options);
             const datos = await response.json();
-            data.mensajeModal = "Video eliminado!"
+            data.mensajeModal = "¡Video eliminado!"
             openModal();
             GetAllVideos();
             console.log(datos)

@@ -1,14 +1,14 @@
 <template>
     <div class="container-fluid">
-        <header class="d-flex justify-content-center m" style="margin: 2em 0 2em 0;">
+        <header class="d-flex justify-content-center m titleWeb">
             <h1>Albúm online - Thomás Enrique Miño Pradel</h1>
         </header>
         <section class="container">
             <h4 for="videoUrl">Añadir nuevo video</h4>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Enlace</span>
-                <input class="form-control" id="videoUrl" placeholder="url de youtube" v-model="newVideoUrl"
-                    @keypress.enter="addVideo" style="width: 15em;" />
+                <input class="form-control w15" id="videoUrl" placeholder="Link de youtube" v-model="newVideoUrl"
+                    @keypress.enter="addVideo" />
                 <button class="btn btn-success" @click="addVideo">Añadir</button>
             </div>
         </section>
@@ -51,7 +51,7 @@
                             <div class="col">
                                 <h4>{{ videoSeleccionado.title.S }}</h4>
                                 <div class="form-floating">
-                                    <textarea class="form-control h250 textAreaDescripcion" placeholder="Sin descripción."
+                                    <textarea class="form-control h250 textAreaDescripcion"  placeholder="Sin descripción."
                                         readonly id="floatingTextarea2">{{ videoSeleccionado.description.S }}</textarea>
                                 </div>
                             </div>

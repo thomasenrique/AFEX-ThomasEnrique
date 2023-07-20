@@ -1,9 +1,11 @@
 .let p {
     text-transform: lowercase;
+    margin-top: 0.2em;
 }
 
 .let p:first-letter {
     text-transform: uppercase;
+
 }
 
 .video {
@@ -35,7 +37,11 @@
     color: #f1f1f1;
     text-align: initial;
 }
- 
+
+.video .container {
+    margin: .5em !important;
+    cursor: pointer !important;
+}
 
 .h250 {
     height: 250px !important
@@ -58,4 +64,12 @@
     color: white !important;
     border: none !important;
     padding-top: 10px !important;
+}
+
+.titleWeb {
+    margin: 2em 0 2em 0;
+}
+
+.w15 {
+    width: 15em;
 }
