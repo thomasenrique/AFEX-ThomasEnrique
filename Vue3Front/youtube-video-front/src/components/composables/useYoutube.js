@@ -28,6 +28,7 @@ export default function () {
             //utilizar url devuelta por el api de youtube 
             const videoResult = await fetch(youtubeResult.response.url);
             const videoResultJson = await videoResult.json();
+            console.log(videoResultJson)
 
             if (videoResultJson.items.length > 0) {
                 var videoFinalData = videoResultJson.items[0];
@@ -63,6 +64,9 @@ export default function () {
                 alert("Video guardado!");
                 data.newVideoUrl = "";
                 GetAllVideos();
+            } else {
+                alert("El enlace no es valido");
+                data.newVideoUrl = "";
             }
         } else {
             alert("El enlace no es valido");
@@ -90,6 +94,7 @@ export default function () {
                     },
                 }
                 const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${apiKey}&part=snippet`, options);
+                console.log(response)
                 return { response: response, id: id };
             } else {
                 return null;

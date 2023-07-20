@@ -7,14 +7,17 @@
 </template>
 
 <style>
-/* #app {
+ #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
 }
-
+body{
+  background-color: #2c3e501f !important;
+}
+/*
 nav {
   padding: 30px;
 }

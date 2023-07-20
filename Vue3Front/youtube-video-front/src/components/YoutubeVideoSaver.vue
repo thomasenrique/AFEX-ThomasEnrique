@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <header class="d-flex justify-content-center m" style="margin: 2em 0 2em 0;">
-            <h1>Videos Favoritos - AFEX Dev Thomás Enrique Miño Pradel</h1>
+            <h1>Albún online  - Thomás Enrique Miño Pradel</h1>
         </header>
         <section class="container">
             <h4 for="videoUrl">Añadir nuevo video</h4>
@@ -17,8 +17,12 @@
             <div v-if="videos"
                 style="display: flex;overflow-x: auto;padding: 1em 4em;flex-direction: row;flex-wrap: wrap;justify-content: center;align-items: flex-start;">
                 <div v-for="(video, index) in videos" :key="video.id_video.S" style="margin: .5em; cursor: pointer;">
+
+
                     <img :src="video.thumbnails.S" style="width: 360px; height: 180px; object-fit: cover;"
                         @click="SeleccionarVideo(video)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn-close" aria-label="Close" @click="eliminarVideo"
+                        style="position: relative; right: 28px; bottom: 71px; background-color: aliceblue;"></button>
 
                 </div>
             </div>
@@ -33,7 +37,7 @@
 
                     <div class="modal-header">
                         <!-- <h5 class="modal-title" id="exampleModalLabel"> {{ videoSeleccionado.title.S }} </h5> -->
-                        <button type="button" class="btn-close" @click="cerrarModal" data-bs-dismiss="modal"
+                        <button type="button" class="btn-close" @click="deleteVideo" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
 
