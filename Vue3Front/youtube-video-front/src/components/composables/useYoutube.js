@@ -65,6 +65,7 @@ export default function () {
             }
         } else {
             alert("El enlace no es valido");
+            data.newVideoUrl = "";
         }
     }
 
