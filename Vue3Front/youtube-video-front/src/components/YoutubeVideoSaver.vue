@@ -26,32 +26,41 @@
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
 
+
+
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"> {{ videoSeleccionado.title.S }} </h5>
+                        <!-- <h5 class="modal-title" id="exampleModalLabel"> {{ videoSeleccionado.title.S }} </h5> -->
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body">
-                        <!-- <iframe width="560" height="315" :src="videoSeleccionado.url.S" title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe> -->
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/CkqsrL9y1BY" title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
-                   
+
+                        <div class="row">
+                            <div class="col">
+                                <iframe width="560" height="315"
+                                    :src="`https://www.youtube.com/embed/${videoSeleccionado.id_share.S}`"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <div class="col">
+                                <h4>{{ videoSeleccionado.title.S }}</h4>
+                                <p style="max-height: 250px;  overflow-y: auto;">{{ videoSeleccionado.description.S }}</p>
+                            </div>
+                        </div>
+
+
 
                     </div>
 
-                    <!-- <div class="modal-footer">
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                            @click="cerrarModal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div> -->
+                            @click="cerrarModal">Cerrar</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    </div>
 
                 </div>
             </div>
@@ -74,7 +83,7 @@ export default {
             id_video: { S: "" },
             thumbnails: { S: "" },
             url: { S: "" },
-
+            id_share: { S: "" }
         }
         const cerrarModal = () => {
             videoSeleccionado.value = videoLimpio;
