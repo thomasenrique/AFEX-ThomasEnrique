@@ -58,7 +58,7 @@ Video eliminado
 #### Get all items
 
 ```http
-  GET /api/GetAll
+  GET /GetAll
 ``` 
 
 #### Add item
