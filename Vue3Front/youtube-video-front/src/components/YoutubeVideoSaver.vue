@@ -33,7 +33,8 @@
 
                     <div class="modal-header">
                         <!-- <h5 class="modal-title" id="exampleModalLabel"> {{ videoSeleccionado.title.S }} </h5> -->
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" @click="cerrarModal" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body">
@@ -48,7 +49,16 @@
                             </div>
                             <div class="col">
                                 <h4>{{ videoSeleccionado.title.S }}</h4>
-                                <p style="max-height: 250px;  overflow-y: auto;">{{ videoSeleccionado.description.S }}</p>
+
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                                        style="height: 100px">
+                                        {{ videoSeleccionado.description.S }}
+                                    </textarea>
+                                    <label for="floatingTextarea2">descripción</label>
+                                </div>
+
+
                             </div>
                         </div>
 
