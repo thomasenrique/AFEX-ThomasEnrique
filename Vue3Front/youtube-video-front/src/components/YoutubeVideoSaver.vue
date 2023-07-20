@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <header class="d-flex justify-content-center m" style="margin: 2em 0 2em 0;">
-            <h1>Albún online  - Thomás Enrique Miño Pradel</h1>
+            <h1>Albún online - Thomás Enrique Miño Pradel</h1>
         </header>
         <section class="container">
             <h4 for="videoUrl">Añadir nuevo video</h4>
@@ -20,7 +20,7 @@
 
 
                     <img :src="video.thumbnails.S" style="width: 360px; height: 180px; object-fit: cover;"
-                        @click="SeleccionarVideo(video)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        @click="SeleccionarVideo(video)" data-bs-toggle="modal" data-bs-target="#modalYoutube">
                     <button type="button" class="btn-close" aria-label="Close" @click="eliminarVideo"
                         style="position: relative; right: 28px; bottom: 71px; background-color: aliceblue;"></button>
 
@@ -28,21 +28,15 @@
             </div>
         </section>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Modal youtube-->
+        <div class="modal fade" id="modalYoutube" tabindex="-1" aria-labelledby="modalYoutubeLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
-
-
-
                     <div class="modal-header">
-                        <!-- <h5 class="modal-title" id="exampleModalLabel"> {{ videoSeleccionado.title.S }} </h5> -->
                         <button type="button" class="btn-close" @click="deleteVideo" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
-
                     <div class="modal-body">
-
                         <div class="row">
                             <div class="col">
                                 <iframe width="560" height="315"
@@ -53,7 +47,6 @@
                             </div>
                             <div class="col">
                                 <h4>{{ videoSeleccionado.title.S }}</h4>
-
                                 <div class="form-floating">
                                     <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
                                         style="height: 100px">
@@ -61,21 +54,33 @@
                                     </textarea>
                                     <label for="floatingTextarea2">descripción</label>
                                 </div>
-
-
                             </div>
                         </div>
-
-
-
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                             @click="cerrarModal">Cerrar</button>
-                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                     </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Modal mensajes-->
+        <div class="modal fade" id="modalMensaje" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalMensajeLabel">Mensaje</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            @click="closeModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ mensajeModal }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            @click="closeModal">Aceptar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,8 +118,11 @@ export default {
             console.log("Mounted")
             await GetAllVideos();
         })
-        const { newVideoUrl, videos, addVideo, deleteVideo, GetAllVideos } = useYoutube();
-        return { cerrarModal, SeleccionarVideo, videoSeleccionado, newVideoUrl, videos, addVideo, deleteVideo, GetAllVideos }
+
+
+
+        const { mensajeModal, newVideoUrl, videos, addVideo, deleteVideo, GetAllVideos, openModal, closeModal } = useYoutube();
+        return { mensajeModal, cerrarModal, SeleccionarVideo, videoSeleccionado, newVideoUrl, videos, addVideo, deleteVideo, GetAllVideos, openModal, closeModal }
     }
 }
 </script>

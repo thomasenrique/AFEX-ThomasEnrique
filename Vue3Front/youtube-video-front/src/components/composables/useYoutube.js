@@ -4,7 +4,8 @@ export default function () {
     const data = reactive({
         newVideoUrl: "",
         arrayVideo: [],
-        videos: []
+        videos: [],
+        mensajeModal: "",
     })
 
     const GetAllVideos = async () => {
@@ -60,16 +61,20 @@ export default function () {
 
                 const response = await fetch(`https://opmj4tizn1.execute-api.us-east-1.amazonaws.com/Add`, options);
                 console.log(response)
-                //TODO agregar mensaje de exito
-                alert("Video guardado!");
+
+                data.mensajeModal = "Video guardado!"
+                openModal();
+
                 data.newVideoUrl = "";
                 GetAllVideos();
             } else {
-                alert("El enlace no es valido");
+                data.mensajeModal = "El enlace no es valido"
+                openModal();
                 data.newVideoUrl = "";
             }
         } else {
-            alert("El enlace no es valido");
+            data.mensajeModal = "El enlace no es valido"
+            openModal();
             data.newVideoUrl = "";
         }
     }
@@ -122,5 +127,13 @@ export default function () {
         }
     }
 
-    return { ...toRefs(data), addVideo, deleteVideo, GetAllVideos }
+    const openModal = () => {
+        $("#modalMensaje").modal("show");
+    }
+
+    const closeModal = () => {
+        $("#modalMensaje").modal("hide");
+    }
+
+    return { ...toRefs(data), addVideo, deleteVideo, GetAllVideos, openModal, closeModal }
 }
