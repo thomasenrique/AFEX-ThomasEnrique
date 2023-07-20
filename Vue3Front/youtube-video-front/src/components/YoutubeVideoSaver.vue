@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <header class="d-flex justify-content-center m" style="margin: 2em 0 2em 0;">
-            <h1>Albún online - Thomás Enrique Miño Pradel</h1>
+            <h1>Albúm online - Thomás Enrique Miño Pradel</h1>
         </header>
         <section class="container">
             <h4 for="videoUrl">Añadir nuevo video</h4>
@@ -49,10 +49,10 @@
                                 <h4>{{ videoSeleccionado.title.S }}</h4>
                                 <div class="form-floating">
                                     <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                                        style="height: 100px">
+                                        style="height: 250px">
                                         {{ videoSeleccionado.description.S }}
                                     </textarea>
-                                    <label for="floatingTextarea2">descripción</label>
+                                    <label for="floatingTextarea2">Descripción</label>
                                 </div>
                             </div>
                         </div>
