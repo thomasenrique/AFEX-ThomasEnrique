@@ -8,7 +8,6 @@ export const handler = async (event) => {
             TableName: 'video_info',
         };
         const data = await ddbClient.send(new ScanCommand(params));
-
         const response = {
             statusCode: 200,
             body: JSON.stringify(data.Items),
